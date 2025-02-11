@@ -4,14 +4,18 @@ const googleClientId = process.env.GOOGLE_CLIENT_ID;
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 const googleOauthRedirectUri = process.env.GOOGLE_OAUTH_REDIRECT_URI;
 
-const kakaoClientId = process.env.KAKAO_CLIENT_ID;
-const kakaoOauthRedirectUri = process.env.KAKAO_OAUTH_REDIRECT_URI;
+const naverClientId = process.env.NAVER_CLIENT_ID;
+const naverClientSecret = process.env.NAVER_CLIENT_SECRET;
+const naverOauthRedirectUri = process.env.NAVER_OAUTH_REDIRECT_URI;
+const naverState = process.env.NAVER_STATE;
 
 module.exports = {
   googleApiKey,
   googleClientId,
   googleClientSecret,
   googleOauthRedirectUri,
-  kakaoClientId,
-  kakaoOauthRedirectUri,
+  naverClientId,
+  naverClientSecret,
+  naverOauthRedirectUri,
+  naverState,
 };
