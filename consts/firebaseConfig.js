@@ -1,5 +1,5 @@
-const { vaildateEnv } = require('./regex');
 require('dotenv').config();
+const { vaildateEnv } = require('./regex');
 
 const googleApiKey = vaildateEnv('string', process.env.GOOGLE_API_KEY);
 
