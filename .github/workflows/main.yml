@@ -26,4 +26,4 @@ jobs:
             cd /home/ubuntu/workplus-back
             git pull origin main
             npm install
-            pm2 restart all || pm2 start server.js --name express-backend
+            pm2 restart all || pm2 start app.js --name express-backend
