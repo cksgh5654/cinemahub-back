@@ -1,0 +1,24 @@
+# Controls when the workflow will run
+on: # 이럴때 실행 해달라
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push: # push를 할때 
+    branches: #어떤것이?
+      - main #main이
+   # main의 정보에 push될때마다 실행을 해달라
+
+# 실행
+jobs:
+  SSH:
+    runs-on: ubuntu-latest # 우분투 최신버전으로 컴퓨터를 준비하라 ()
+
+    steps:
+      - uses: actions/checkout@v3 # 레파지토리 참고하라
+      - name: ssh to ec2 # ec2에 접속하라.
+        uses: appleboy/ssh-action@master # 접속 제공 코드
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # 키페어 필요
+          host: ${{ secrets.HOST }} # ip
+          username: ${{ secrets.USER }} # 해당 유저 접속 
+          script: | # 실행 할 코드
+            cd Github/car_price_dash_board/  #경로 이동 (실제 존재하는 경로로 이동해야한다.)
+            git pull # git pull
