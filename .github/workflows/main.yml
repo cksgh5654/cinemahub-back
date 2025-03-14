@@ -20,5 +20,7 @@ jobs:
           host: ${{ secrets.HOST }} # ip
           username: ${{ secrets.USER }} # 해당 유저 접속 
           script: | # 실행 할 코드
-            cd Github/car_price_dash_board/  #경로 이동 (실제 존재하는 경로로 이동해야한다.)
-            git pull # git pull
+            cd /home/ubuntu/workplus-back
+            git pull origin main
+            npm install
+            pm2 restart all || pm2 start server.js --name express-backend
