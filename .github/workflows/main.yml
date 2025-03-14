@@ -20,6 +20,9 @@ jobs:
           host: ${{ secrets.HOST }} # ip
           username: ${{ secrets.USER }} # 해당 유저 접속 
           script: | # 실행 할 코드
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # nvm 로드
+            export PATH="$HOME/.npm-global/bin:$PATH"  # npm 글로벌 패키지 경로 추가
             cd /home/ubuntu/workplus-back
             git pull origin main
             npm install
