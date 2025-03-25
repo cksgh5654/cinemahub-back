@@ -33,7 +33,7 @@ app.use(
 
 app.use(
   session({
-    name: "connect.sid",
+    name: SESSION_NAME,
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: false,
