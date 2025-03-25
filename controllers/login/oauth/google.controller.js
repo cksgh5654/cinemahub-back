@@ -74,6 +74,7 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
       req.session.loginState = true;
       req.session.user = { email };
       console.log("세션 저장 전:", req.session);
+      console.log("Request Headers:", req.headers);
       console.log("Google Redirect 세션 ID:", req.sessionID);
       req.session.save((err) => {
         if (err) {

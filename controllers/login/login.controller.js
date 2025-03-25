@@ -106,6 +106,7 @@ loginController.get("/logout", (req, res) => {
 });
 
 loginController.get("/check-login", (req, res) => {
+  console.log("Request Headers:", req.headers);
   console.log("Check Login 세션 ID:", req.sessionID);
   console.log(req.session.loginState);
   if (req.session.loginState) {
