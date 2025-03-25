@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { vaildateEnv } = require("./regex");
+const { vaildateEnv } = require("./regex").default;
 
 const PORT = vaildateEnv("string", process.env.PORT);
 
@@ -10,7 +10,8 @@ const MONGODB_URL = vaildateEnv("mongoose", process.env.MONGODB_URL);
 const JWT_SECRET_KEY = "jwt_secret_key";
 //vaildateEnv('string', process.env.JWT_SECRET_KEY);
 
-const SESSION_NAME = vaildateEnv("string", process.env.SESSION_NAME);
+const SESSION_NAME = "connect.sid";
+// const SESSION_NAME = vaildateEnv("string", process.env.SESSION_NAME);
 
 const SESSION_SECRET_KEY = "cinamahub_secret_key";
 // vaildateEnv(
