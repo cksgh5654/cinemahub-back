@@ -12,7 +12,7 @@ const JWT_SECRET_KEY = "jwt_secret_key";
 
 const SESSION_NAME = vaildateEnv("string", process.env.SESSION_NAME);
 
-const SESSION_SECRET_KEY = "cinamahub_serect_key";
+const SESSION_SECRET_KEY = "cinamahub_secrect_key";
 // vaildateEnv(
 //   'string',
 //   process.env.SESSION_SERECT_KEY
