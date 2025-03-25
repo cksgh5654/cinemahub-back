@@ -84,20 +84,19 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
       console.log("세션 저장 전:", req.session);
       console.log("Request Headers:", req.headers);
       console.log("Google Redirect 세션 ID:", req.sessionID);
-      req.session.save(async (err) => {
+      req.session.save((err) => {
         if (err) {
           console.error("세션 저장 실패:", err);
           return res.status(500).send("세션 저장 실패");
         }
         console.log("저장된 connect.sid:", req.cookies["connect.sid"]);
-        try {
-          const redisData = await client.get(`sess:${req.sessionID}`);
-          console.log("Redis 세션 확인:", redisData);
-        } catch (redisErr) {
-          console.error("Redis 조회 실패:", redisErr);
-        }
-        console.log("세션 저장 후:", req.session);
-        res.redirect(FRONT_URL);
+        res.cookie("connect.sid", req.sessionID, {
+          secure: true,
+          httpOnly: true,
+          sameSite: "None",
+          path: "/",
+        }); // 강제로 쿠키 설정
+        res.redirect("https://cinemahub-one.vercel.app");
       });
     }
   } catch (e) {

@@ -40,9 +40,10 @@ app.use(
     saveUninitialized: false,
     store: new RedisStore({ client: client }),
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: true, // HTTPS 환경이므로 true
       httpOnly: true,
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      sameSite: "None", // 크로스 사이트 요청을 위해 필요
+      path: "/", // 쿠키 경로 명시
     },
   })
 );
