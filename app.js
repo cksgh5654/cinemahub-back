@@ -4,7 +4,7 @@ const apiController = require("./controllers");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const RedisStore = require("connect-redis").default;
+const createRedisStore = require("connect-redis");
 const Redis = require("ioredis");
 
 const redisClient = new Redis({
@@ -15,6 +15,8 @@ const redisClient = new Redis({
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+const RedisStore = createRedisStore(session);
 
 app.use(
   session({
