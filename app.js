@@ -31,6 +31,7 @@ app.use(
   })
 );
 
+app.use(cookieParser());
 app.use(
   session({
     name: SESSION_NAME,
@@ -45,9 +46,9 @@ app.use(
     },
   })
 );
+console.log("SESSION_NAME:", SESSION_NAME);
 console.log("SESSION_SECRET_KEY:", SESSION_SECRET_KEY);
 app.use("/images", express.static("images"));
 app.use("/api", apiController);
-app.use(cookieParser());
 
 module.exports = app;
