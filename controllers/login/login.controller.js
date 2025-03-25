@@ -106,7 +106,7 @@ loginController.get("/logout", (req, res) => {
 });
 
 loginController.get("/check-login", (req, res) => {
-  console.log("Request Headers:", req.headers);
+  console.log("Received connect.sid:", req.cookies["connect.sid"]);
   console.log("Check Login 세션 ID:", req.sessionID);
   console.log("세션 전체:", req.session);
   console.log("loginState:", req.session.loginState);
