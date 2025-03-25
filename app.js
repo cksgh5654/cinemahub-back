@@ -21,7 +21,7 @@ client.on("error", (err) => console.log("Redis 연결 에러:", err));
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.set("trust proxy", 1);
 app.use(
   cors({
     origin: FRONT_URL,
@@ -45,7 +45,7 @@ app.use(
     },
   })
 );
-
+console.log("SESSION_SECRET_KEY:", SESSION_SECRET_KEY);
 app.use("/images", express.static("images"));
 app.use(cookieParser());
 app.use("/api", apiController);
