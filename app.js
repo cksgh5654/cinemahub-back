@@ -1,4 +1,4 @@
-const { SESSION_NAME, SESSION_SECRET_KEY } = require("./consts/app");
+const { SESSION_NAME, SESSION_SECRET_KEY, FRONT_URL } = require("./consts/app");
 require("./db_init");
 const apiController = require("./controllers");
 const express = require("express");
@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { RedisStore } = require("connect-redis");
 const Redis = require("ioredis");
+const cors = require("cors");
 
 const client = new Redis({
   host: "redis-14565.c340.ap-northeast-2-1.ec2.redns.redis-cloud.com",
@@ -20,6 +21,13 @@ client.on("error", (err) => console.log("Redis 연결 에러:", err));
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(
+  cors({
+    origin: FRONT_URL,
+    credentials: true,
+  })
+);
 
 app.use(
   session({
