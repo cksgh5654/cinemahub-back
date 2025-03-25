@@ -40,10 +40,10 @@ app.use(
     saveUninitialized: false,
     store: new RedisStore({ client: client }),
     cookie: {
-      secure: true, // HTTPS 환경이므로 true
+      secure: true,
       httpOnly: true,
-      sameSite: "None", // 크로스 사이트 요청을 위해 필요
-      path: "/", // 쿠키 경로 명시
+      sameSite: "None",
+      path: "/",
     },
   })
 );
