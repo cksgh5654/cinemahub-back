@@ -106,24 +106,20 @@ loginController.get("/logout", (req, res) => {
 });
 
 loginController.get("/check-login", async (req, res) => {
-  const clientSid = req.cookies["connect.sid"];
-  const serverSid = req.sessionID;
   console.log("Request Headers:", req.headers);
-  console.log("클라이언트 connect.sid:", clientSid || "없음");
-  console.log("서버 세션 ID:", serverSid);
+  console.log("클라이언트 connect.sid:", req.cookies["connect.sid"] || "없음");
+  console.log("서버 세션 ID:", req.sessionID);
   console.log("세션 데이터:", req.session);
-  const redisServerData = await client.get(`sess:${serverSid}`);
+  const redisServerData = await client.get(`sess:${req.sessionID}`);
   console.log("Redis 조회 (서버 SID):", redisServerData);
-  if (clientSid) {
-    const clientSidValue = clientSid.split(".")[0].split(":")[1];
+  if (req.cookies["connect.sid"]) {
+    const clientSidValue = req.cookies["connect.sid"]
+      .split(".")[0]
+      .split(":")[1];
     const redisClientData = await client.get(`sess:${clientSidValue}`);
     console.log("Redis 조회 (클라이언트 SID):", redisClientData);
   }
-  if (req.session.loginState) {
-    return res.json({ result: true });
-  } else {
-    return res.json({ result: false });
-  }
+  res.json({ result: !!req.session.loginState });
 });
 
 module.exports = loginController;
