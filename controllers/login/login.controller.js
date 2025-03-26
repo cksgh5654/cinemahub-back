@@ -111,12 +111,13 @@ loginController.get("/check-login", async (req, res) => {
   console.log("클라이언트 connect.sid:", clientSid);
   console.log("서버 세션 ID:", serverSid);
   console.log("세션 데이터:", req.session);
-  const redisData = await client.get(`sess:${serverSid}`);
-  console.log("Redis 조회 (서버 SID):", redisData);
-  const redisClientData = await client.get(
-    `sess:${clientSid.split(".")[0].split(":")[1]}`
-  );
-  console.log("Redis 조회 (클라이언트 SID):", redisClientData);
+  const redisServerData = await client.get(`sess:${serverSid}`);
+  console.log("Redis 조회 (서버 SID):", redisServerData);
+  if (clientSid) {
+    const clientSidValue = clientSid.split(".")[0].split(":")[1];
+    const redisClientData = await client.get(`sess:${clientSidValue}`);
+    console.log("Redis 조회 (클라이언트 SID):", redisClientData);
+  }
   if (req.session.loginState) {
     return res.json({ result: true });
   } else {

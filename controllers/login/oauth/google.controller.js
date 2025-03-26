@@ -81,6 +81,8 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
           console.error("세션 저장 실패:", err);
           return res.status(500).send("세션 저장 실패");
         }
+        const redisData = await client.get(`sess:${req.sessionID}`);
+        console.log("Redis 세션 확인:", redisData);
         res.cookie(
           "connect.sid",
           `s:${req.sessionID}.${req.session.cookie.signature}`,
