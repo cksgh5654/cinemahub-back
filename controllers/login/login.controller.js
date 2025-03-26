@@ -108,7 +108,8 @@ loginController.get("/logout", (req, res) => {
 loginController.get("/check-login", async (req, res) => {
   const clientSid = req.cookies["connect.sid"];
   const serverSid = req.sessionID;
-  console.log("클라이언트 connect.sid:", clientSid);
+  console.log("Request Headers:", req.headers);
+  console.log("클라이언트 connect.sid:", clientSid || "없음");
   console.log("서버 세션 ID:", serverSid);
   console.log("세션 데이터:", req.session);
   const redisServerData = await client.get(`sess:${serverSid}`);

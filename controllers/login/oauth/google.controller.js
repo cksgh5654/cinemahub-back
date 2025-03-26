@@ -92,6 +92,7 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
             sameSite: "None",
           }
         );
+        console.log("Set-Cookie 헤더:", res.get("Set-Cookie"));
         res.redirect(FRONT_URL);
       });
     }

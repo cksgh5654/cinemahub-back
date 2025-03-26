@@ -5,7 +5,6 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { RedisStore } = require("connect-redis");
-const Redis = require("ioredis");
 const cors = require("cors");
 const client = require("./utils/redis");
 
