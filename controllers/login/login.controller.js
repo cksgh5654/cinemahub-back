@@ -105,15 +105,17 @@ loginController.get("/logout", (req, res) => {
   }
 });
 
-loginController.get("/check-login", (req, res) => {
+loginController.get("/check-login", async (req, res) => {
   console.log("Request Headers:", req.headers);
   console.log(
     "Received connect.sid:",
-    req.cookies ? req.cookies["connect.sid"] : "쿠키 없음"
+    req.cookies["connect.sid"] || "쿠키 없음"
   );
   console.log("Check Login 세션 ID:", req.sessionID);
   console.log("세션 전체:", req.session);
   console.log("loginState:", req.session.loginState);
+  const redisData = await client.get(`sess:${req.sessionID}`);
+  console.log("Redis에서 조회된 세션:", redisData);
   if (req.session.loginState) {
     return res.json({ result: true });
   } else {

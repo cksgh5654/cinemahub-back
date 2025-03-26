@@ -89,15 +89,11 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
           console.error("세션 저장 실패:", err);
           return res.status(500).send("세션 저장 실패");
         }
+        const sid = req.sessionID;
         console.log("저장된 connect.sid:", req.cookies["connect.sid"]);
-        try {
-          const redisData = await client.get(`sess:${req.sessionID}`);
-          console.log("Redis 세션 확인:", redisData);
-        } catch (redisErr) {
-          console.error("Redis 조회 실패:", redisErr);
-        }
+        const redisData = await client.get(`sess:${sid}`);
+        console.log("Redis 세션 확인:", redisData);
         console.log("세션 저장 후:", req.session);
-
         res.redirect(FRONT_URL);
       });
     }
