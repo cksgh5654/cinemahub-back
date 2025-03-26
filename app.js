@@ -40,10 +40,9 @@ app.use(
     saveUninitialized: false,
     store: new RedisStore({ client: client }),
     cookie: {
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      sameSite: "None",
-      path: "/",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     },
   })
 );
