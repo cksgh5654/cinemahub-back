@@ -16,15 +16,7 @@ const {
 } = require("../../../services/user/user.service");
 
 const googleController = require("express").Router();
-const Redis = require("ioredis");
-
-const client = new Redis({
-  host: "redis-14565.c340.ap-northeast-2-1.ec2.redns.redis-cloud.com",
-  port: 14565,
-  username: "default",
-  password: "0p7N9kF6rFOwnGuoYmWT0hEHnYC87bEH",
-});
-
+const client = require("../../../utils/redis");
 /** google oauth
  * /api/login/google-oauth
  */

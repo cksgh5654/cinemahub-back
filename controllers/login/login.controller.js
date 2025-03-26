@@ -8,7 +8,7 @@ const {
 } = require("../../services/user/user.service");
 const googleController = require("./oauth/google.controller");
 const naverController = require("./oauth/naver.controller");
-
+const client = require("../../utils/redis");
 /**
  * /api/login/google
  * /api/login/naver
