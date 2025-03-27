@@ -23,6 +23,7 @@ const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 const AWS_REGION = process.env.AWS_REGION;
 const S3_BUCKET_NAME = process.env.S3_BUCKET_NAME;
+const NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
   PORT,
@@ -35,4 +36,5 @@ module.exports = {
   AWS_SECRET_ACCESS_KEY,
   AWS_REGION,
   S3_BUCKET_NAME,
+  NODE_ENV,
 };

@@ -1,4 +1,9 @@
-const { SESSION_NAME, SESSION_SECRET_KEY, FRONT_URL } = require("./consts/app");
+const {
+  SESSION_NAME,
+  SESSION_SECRET_KEY,
+  FRONT_URL,
+  NODE_ENV,
+} = require("./consts/app");
 require("./db_init");
 const apiController = require("./controllers");
 const express = require("express");
@@ -33,9 +38,9 @@ app.use(
     saveUninitialized: false,
     store: new RedisStore({ client: client }),
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: NODE_ENV === "production",
       httpOnly: true,
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      sameSite: NODE_ENV === "production" ? "None" : "Lax",
       path: "/",
     },
   })
@@ -43,7 +48,7 @@ app.use(
 console.log("SESSION_NAME:", SESSION_NAME);
 console.log("SESSION_SECRET_KEY:", SESSION_SECRET_KEY);
 console.log("FRONT_URL:", FRONT_URL);
-console.log("process.env.NODE_ENV:", process.env.NODE_ENV);
+console.log("process.env.NODE_ENV:", NODE_ENV);
 app.use("/images", express.static("images"));
 app.use("/api", apiController);
 
