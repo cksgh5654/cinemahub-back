@@ -83,6 +83,12 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
         }
         const redisData = await client.get(`sess:${req.sessionID}`);
         console.log("Redis 세션 확인:", redisData);
+        res.cookie("connect.sid", `s:${req.sessionID}`, {
+          secure: false,
+          httpOnly: true,
+          sameSite: "None",
+          path: "/",
+        });
         console.log("Set-Cookie 헤더:", res.get("Set-Cookie"));
         res.redirect(FRONT_URL);
       });
