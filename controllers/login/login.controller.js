@@ -119,7 +119,12 @@ loginController.get("/check-login", async (req, res) => {
     const redisClientData = await client.get(`sess:${clientSidValue}`);
     console.log("Redis 조회 (클라이언트 SID):", redisClientData);
   }
-  res.json({ result: !!req.session.loginState });
+  res.json({
+    result: !!req.session.loginState,
+    sessionId: req.sessionID,
+    redisData: await client.get(`sess:${req.sessionID}`),
+    cookies: req.headers.cookie, // 클라이언트에서 전달된 쿠키 확인
+  });
 });
 
 module.exports = loginController;

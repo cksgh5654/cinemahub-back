@@ -36,7 +36,7 @@ app.use(
     secret: SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: false,
-    store: new RedisStore({ client: client }),
+    store: new RedisStore({ client: client, ttl: 86400 }),
     cookie: {
       secure: NODE_ENV === "production",
       httpOnly: true,
