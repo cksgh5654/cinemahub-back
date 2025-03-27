@@ -42,6 +42,8 @@ app.use(
 );
 console.log("SESSION_NAME:", SESSION_NAME);
 console.log("SESSION_SECRET_KEY:", SESSION_SECRET_KEY);
+console.log("FRONT_URL:", FRONT_URL);
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV);
 app.use("/images", express.static("images"));
 app.use("/api", apiController);
 
