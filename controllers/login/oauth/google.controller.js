@@ -94,7 +94,8 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
           path: "/",
         });
         console.log("Set-Cookie 헤더:", res.get("Set-Cookie"));
-        res.redirect(FRONT_URL);
+        // res.redirect(FRONT_URL);
+        return res.json({ result: true, message: "로그인 성공" });
       });
     }
   } catch (e) {
