@@ -88,7 +88,7 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
           });
         console.log("Redis 세션 확인:", redisData);
         res.cookie("connect.sid", `s:${req.sessionID}`, {
-          secure: false,
+          secure: true,
           httpOnly: true,
           sameSite: "None",
           path: "/",
