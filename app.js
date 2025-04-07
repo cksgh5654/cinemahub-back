@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.set("trust proxy", 1);
 app.use(
   cors({
-    origin: FRONT_URL,
+    origin: [FRONT_URL, "https://www.chanhoportfolio.com"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Custom-Header"],
