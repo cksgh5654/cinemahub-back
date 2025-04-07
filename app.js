@@ -25,7 +25,7 @@ app.use(
     origin: [FRONT_URL, "https://www.chanhoportfolio.com"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Custom-Header"],
+    // allowedHeaders: ["Content-Type", "Authorization", "X-Custom-Header"],
   })
 );
 
