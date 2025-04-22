@@ -1,4 +1,4 @@
-# <img src="https://github.com/user-attachments/assets/3067ce67-7023-4968-b818-43a0e355e4ff" width="28" height="28"> Blahblah
+# Cinemahub
 
 **cinemahub**는 다양한 국가의 트랜드 영화와 영화인의 정보를 확인하고 리뷰를 작성하고 팔로우 기능을 통해 유저의 관심 영화와 리뷰룰 확인할 수 있는 애플리케이션입니다.
 
