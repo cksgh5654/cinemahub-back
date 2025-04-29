@@ -16,7 +16,7 @@ const {
 } = require("../../../services/user/user.service");
 
 const googleController = require("express").Router();
-const client = require("../../../utils/redis");
+
 /** google oauth
  * /api/login/google-oauth
  */
@@ -30,6 +30,7 @@ googleController.get("/google-oauth", (req, res) => {
  */
 googleController.get("/google-oauth-redirect", async (req, res) => {
   const { code } = req.query;
+
   const redirectUrl = `https://oauth2.googleapis.com/token`;
 
   try {
@@ -42,11 +43,13 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
     });
 
     const { error, error_description } = request.data;
+
     if (error && error_description) {
       throw new InvaildRequestError(error, error_description);
     }
 
     const { access_token } = request.data;
+
     const requestUserinfoUrl = `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}`;
     const requestUserinfo = await axios.get(requestUserinfoUrl);
 
@@ -54,6 +57,7 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
       const { email, name, picture } = requestUserinfo.data;
       const result = await findUserEmailBoolean({ email });
 
+      // 등록된 회원이 아닐 경우
       if (!result) {
         const register_google = jwt.sign(
           { email, name, picture },
@@ -63,9 +67,10 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
           httpOnly: true,
           maxAge: 60 * 60 * 1000,
         });
-        return res.redirect(`${FRONT_URL}register?social=1`);
+        return res.redirect(`${FRONT_URL}/register?social=1`);
       }
 
+      // 탈퇴한 회원일 경우 false, 아니면 [{}]
       const IsDeletedUser = await findDeletedUserEmailBoolean({ email });
       if (IsDeletedUser) {
         return res.redirect(`${FRONT_URL}login?user=deleted`);
@@ -73,35 +78,14 @@ googleController.get("/google-oauth-redirect", async (req, res) => {
 
       req.session.loginState = true;
       req.session.user = { email };
-      console.log("세션 저장 전:", req.session);
-      console.log("Request Headers:", req.headers);
-      console.log("Google Redirect 세션 ID:", req.sessionID);
-      req.session.save(async (err) => {
-        if (err) {
-          console.error("세션 저장 실패:", err);
-          return res.status(500).send("세션 저장 실패");
-        }
-        const redisData = await client
-          .get(`sess:${req.sessionID}`)
-          .then((data) => {
-            console.log("Redis에 저장된 세션 데이터:", data);
-          });
-        console.log("Redis 세션 확인:", redisData);
-        res.cookie("connect.sid", `s:${req.sessionID}`, {
-          httpOnly: true,
-          sameSite: "None",
-          secure: true,
-          maxAge: 60 * 60 * 1000,
-          path: "/",
-        });
-        console.log("Set-Cookie 헤더:", res.get("Set-Cookie"));
-        // res.redirect(FRONT_URL);
-        return res.status(200).json({ result: true, message: "로그인 성공" });
-      });
+
+      // 기등록 유저일 떄 바로 로그인
+      return res.redirect(FRONT_URL);
     }
   } catch (e) {
-    console.error("Google OAuth 에러:", e.message);
-    res.status(500).send("로그인 처리 중 오류 발생");
+    if (e instanceof InvaildRequestError) {
+      console.error(e.message);
+    }
   }
 });
 

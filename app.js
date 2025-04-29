@@ -22,10 +22,13 @@ app.use(express.urlencoded({ extended: false }));
 app.set("trust proxy", 1);
 app.use(
   cors({
-    origin: "https://www.chanhoportfolio.com",
+    origin:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:5173"
+        : "https://cinemahub.chanhoportfolio.com",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    // allowedHeaders: ["Content-Type", "Authorization", "X-Custom-Header"],
+    allowedHeaders: ["Content-Type", "Cookie", "Set-Cookie"],
   })
 );
 

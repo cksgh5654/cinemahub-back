@@ -16,7 +16,7 @@ const client = require("../../utils/redis");
 
 loginController.use("/google", googleController);
 loginController.use("/naver", naverController);
-
+// login.controller.js
 loginController.post("/user", async (req, res) => {
   const { email, nickname, profile } = req.body;
 
@@ -36,10 +36,31 @@ loginController.post("/user", async (req, res) => {
     const result = await createUser({ email, nickname, profile });
     req.session.loginState = true;
     req.session.user = { email };
+    console.log("세션 저장 전:", req.session);
 
-    return res.json({
-      result: true,
-      message: "계정 등록이 완료되었습니다.",
+    req.session.save((err) => {
+      if (err) {
+        console.error("세션 저장 실패:", err);
+        return res
+          .status(500)
+          .json({ result: false, message: "세션 저장 실패" });
+      }
+      console.log("세션 저장 후:", req.session);
+      client.get(`sess:${req.sessionID}`, (err, data) => {
+        if (err) console.error("Redis 조회 에러:", err);
+        console.log("Redis 세션 데이터:", data);
+      });
+      res.cookie("connect.sid", `s:${req.sessionID}`, {
+        httpOnly: true,
+        sameSite: "Lax",
+        secure: false,
+        maxAge: 60 * 60 * 1000,
+        path: "/",
+      });
+      return res.json({
+        result: true,
+        message: "계정 등록이 완료되었습니다.",
+      });
     });
   } catch (e) {
     console.error(e.message);
