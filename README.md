@@ -18,7 +18,7 @@
 
 ## 📌 담당 페이지
 
-### 메인 페이지 [메인페이지 링크](https://cinemahub.chanhoportfolio.com)
+### [메인페이지](https://cinemahub.chanhoportfolio.com)
 
 - MouseEvent.clientX, react Children.toArray로 드래그로 넘기는 무한캐러샐 구현
 - useRef, getBoundingClientRect로 드래그와, 횡스크롤로 움직이는 캐러샐 구현
@@ -29,7 +29,7 @@
 
 ---
 
-### 영화 및 영화인 상세 페이지 [영화 상세페이지 링크](https://cinemahub.chanhoportfolio.com/?movie=447273) [영화인 상세페이지 링크](https://cinemahub.chanhoportfolio.com/?person=90633)
+### [영화 상세페이지](https://cinemahub.chanhoportfolio.com/?movie=447273), [영화인 상세페이지](https://cinemahub.chanhoportfolio.com/?person=90633)
 
 - createPortal로 만든 모달 컴포넌트에 zustand로 전역상태로 페이지 값을 가져와서 모달 형태의 페이지 구현
 - 페이지네이션으로 포스터, 인물 이미지를 페이지로 분할하여 데이터 로드
@@ -42,7 +42,7 @@
 
 ---
 
-### 장르별 영화 페이지 [장르 페이지 링크](https://cinemahub.chanhoportfolio.com/genre/28)
+### [장르별 영화 페이지](https://cinemahub.chanhoportfolio.com/genre/28)
 
 - IntersectionObserver로 무한 스크롤을 구현해 데이터 로딩 속도를 최적화하고 사용자 경험을 개선
 - popover api를 사용한 셀렉트 버튼으로 인기순, 최신순, 이름순으로 정렬하여 데이터 불러오기
